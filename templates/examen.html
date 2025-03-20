@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% block container %}
+
+
+<form action="/examen" method="POST" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 space-y-4">
+    {{ form.hidden_tag() }}
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required class="border border-gray-300 p-2 rounded w-full">
+    </div>
+    <div>
+        <label for="apaterno">Apellido Paterno:</label>
+        <input type="text" name="apaterno" required class="border border-gray-300 p-2 rounded w-full">
+    </div>
+    <div class="mt-4">
+        <input type="submit" name="btn1" value="Buscar Alumno" class="bg-blue-500 text-white p-2 rounded">
+    </div>
+    <div class="mt-4">
+    <a href="index" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+        Cancelar 
+        </a>
+    </div>
+</form>
+
+{% if alumno %}
+   
+    <div class="mt-6">
+        <h2 class="text-xl font-bold">Datos del Alumno</h2>
+        <p><strong>Nombre:</strong> {{ alumno.nombre }} {{ alumno.apaterno }} {{ alumno.amaterno }}</p>
+        <p><strong>Edad:</strong> {{ alumno.edad }}</p>
+        <p><strong>Grupo:</strong> {{ alumno.grupo }}</p>
+    </div>
+
+   
+    <form action="/examen" method="POST">
+        {{ form.hidden_tag() }}
+        <input type="hidden" name="alumno_id" value="{{ alumno.id }}">
+        <input type="hidden" name="nombre" value="{{ alumno.nombre }}">
+        <input type="hidden" name="apaterno" value="{{ alumno.apaterno }}">
+        <input type="hidden" name="grupo" value="{{ alumno.grupo }}">
+
+        <div class="mt-6">
+            <h2 class="text-xl font-bold">Examen</h2>
+            {% for pregunta in preguntas %}
+                <div class="mt-4 p-4 border rounded-lg">
+                    <p><strong>{{ pregunta.id }}. {{ pregunta.pregunta }}</strong></p>
+
+                    {% for choice in ['a', 'b', 'c', 'd'] %}
+                    <div>
+                        <input type="radio" name="respuesta_{{ pregunta.id }}" value="{{ choice }}" required>
+                        <label>{{ choice }}. {{ pregunta[choice] }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4">
+            <input type="submit" name="btnEnviar" value="Enviar Examen" class="bg-green-500 text-white p-2 rounded">
+        </div>
+    </form>
+{% endif %}
+
+{% if calificacion is not none %}
+    <div class="mt-6">
+        <h2 class="text-xl font-bold">Calificación: {{ calificacion }}%</h2>
+    </div>
+{% endif %}
+
+{% endblock %}

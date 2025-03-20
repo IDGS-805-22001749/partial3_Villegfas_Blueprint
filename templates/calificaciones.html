@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block container %}
+
+
+<form action="/calificaciones" method="POST" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 space-y-4"> 
+    {{ form.csrf_token() }}
+    <div class="mb-6">
+        <label for="grupo">Selecciona un grupo:</label>
+        {{ form.grupo(class="border border-gray-300 p-2 rounded w-full") }}
+    </div>
+    <input type="submit" value="Ver Calificaciones" class="bg-blue-500 text-white p-2 rounded">
+    <a href="index" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+        Regresar
+        </a>
+    
+</form>
+
+
+{% if grupo_seleccionado and alumnos %}
+    <h2 class="mt-6 text-xl font-bold">Calificaciones del grupo: {{ grupo_seleccionado }}</h2>
+    <table class="table-auto w-full mt-4 border border-gray-300">
+        <thead>
+            <tr>
+                <th class="border px-4 py-2">Nombre</th>
+                <th class="border px-4 py-2">Apellido Paterno</th>
+                <th class="border px-4 py-2">Grupo</th>
+                <th class="border px-4 py-2">Calificación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td class="border px-4 py-2">{{ alumno.nombreAlumno }}</td>
+                <td class="border px-4 py-2">{{ alumno.apaternoAlumno }}</td>
+                <td class="border px-4 py-2">{{ alumno.grupo }}</td>
+                <td class="border px-4 py-2">{{ alumno.calificacion }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif grupo_seleccionado %}
+    <p class="mt-4 text-red-500">No se encontraron alumnos en el grupo seleccionado.</p>
+{% endif %}
+
+{% endblock %}
