@@ -138,8 +138,43 @@ class RegistroForm(FlaskForm):
     password = PasswordField(
     'Contraseña',
     validators=[
-        DataRequired(message='El campo es requerido'),  # Asegura que no esté vacío
-        Length(min=8, message='La contraseña debe tener al menos 8 caracteres'),  # Longitud mínima
-        Regexp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#-_=])[A-Za-z\d@$!%*?&]{8,}$', message='La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial')
+        DataRequired(message='El campo es requerido'),  
+        Length(min=8, message='La contraseña debe tener al menos 8 caracteres'),  
+        Regexp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&]{8,}$', message='La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial @$!%*?&#')
     ]
     )
+    role = SelectField('Rol', 
+        choices=[
+            ('alumno', 'Alumno'),
+            ('profesor', 'Profesor'),
+        ],
+        validators=[DataRequired(message='El campo es requerido')]
+    )
+
+
+class FormProfesores(FlaskForm):
+    
+    id=IntegerField('id',
+
+    [validators.number_range(min=1, max=20,message='valor no valido')])
+
+    nombre=StringField('Nombre',[
+
+        validators.DataRequired(message='El nombre es requerido'),
+
+        validators.length(min=4,max=20, message='requiere min=4 max=20')
+
+    ])
+    apaterno=StringField('Apellido',[
+
+        validators.DataRequired(message='El apellido es requerido')
+
+    ])
+
+    email=EmailField('Correo',[
+
+        validators.DataRequired(message='El apellido es requerido'),
+
+        validators.Email(message='Ingrese un correo valido')
+
+    ])

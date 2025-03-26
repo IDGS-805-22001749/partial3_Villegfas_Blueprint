@@ -16,7 +16,12 @@ class Alumnos(db.Model):
     edad = db.Column(db.Integer)
     grupo = db.Column(db.String(10))
    
-
+class Profesores(db.Model):
+    __tablename__ = 'profesores'
+    id=db.Column(db.Integer,primary_key=True)
+    nombre=db.Column(db.String(50))
+    apaterno=db.Column(db.String(50))
+    email=db.Column(db.String(50))
 
 class Preguntas(db.Model):
     __tablename__ = 'preguntas'
@@ -43,4 +48,6 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
+    role = db.Column(db.String(10), nullable=False) 
+    
 

@@ -1,14 +1,13 @@
- <!-- login.html -->
+{% extends "layout.html" %}
 
- {% extends "layout.html" %}
+{% block container %} 
+{% import "_macros.html" as macros %}
 
- {% block container %} {% import "_macros.html" as macros%}
-
- <form action="/login" method="POST" novalidate class="max-w-sm mx-auto">
+<form action="{{ url_for('login.login') }}" method="POST" novalidate class="max-w-sm mx-auto">
     {{ form.csrf_token}} 
-     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
- 
-     <div class="mb-5">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <div class="mb-5">
         {{macros.campoNuevo(form.username, class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
         focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
         dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500")}}   
@@ -18,17 +17,17 @@
         focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
         dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500")}}   
     </div>
- 
+
     <input 
     type="submit"
     value="Iniciar sesión"
     class="bg-blue-700 rounded-lg text-sm text-white dark:bg-blue-600 dark:focus:ring-blue-800 dark:hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium hover:bg-blue-800 mb-2 me-2 px-5 py-2.5"
     />
-    <a href="registro" class="bg-green-700 rounded-lg text-sm text-white dark:bg-green-600 dark:focus:ring-green-800 dark:hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium hover:bg-green-800 mb-2 me-2 px-5 py-2.5">
-    Registrarme
-    </a>
+    &nbsp;
+        <a href="{{ url_for('login.registro') }}"  class="bg-green-700 rounded-lg text-sm text-white dark:bg-green-600 dark:focus:ring-green-800 dark:hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium hover:bg-green-800 mb-2 me-2 px-5 py-2.5">
+            Registrarme
+        </a>
+    </div>
 
 </form>
- {% endblock %}
- 
-  
+{% endblock %}

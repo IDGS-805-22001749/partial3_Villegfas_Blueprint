@@ -2,14 +2,14 @@
 {% block container %}
 
 
-<form action="/calificaciones" method="POST" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 space-y-4"> 
+<form action="{{ url_for('profesores.calificaciones')}}" method="POST" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 space-y-4"> 
     {{ form.csrf_token() }}
     <div class="mb-6">
         <label for="grupo">Selecciona un grupo:</label>
         {{ form.grupo(class="border border-gray-300 p-2 rounded w-full") }}
     </div>
     <input type="submit" value="Ver Calificaciones" class="bg-blue-500 text-white p-2 rounded">
-    <a href="index" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+    <a href="{{ url_for('profesores.indexProfesores') }}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
         Regresar
         </a>
     
